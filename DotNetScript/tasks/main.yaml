@@ -1,0 +1,3 @@
+ - name: Install dotnet.script
+   win_chocolatey: name=dotnet.script  state=latest source="{{ ChocoFeedUrl }}"
+   tags: dotnetscript

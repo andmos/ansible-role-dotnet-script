@@ -1,0 +1,22 @@
+- name: Install dotnetscript dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "unzip"
+  tags: dotnetscript
+
+- name: Download dotnet-script install script
+  get_url:
+    url: https://raw.githubusercontent.com/filipw/dotnet-script/master/install/install.sh
+    dest: /tmp/
+    mode: u+rwx
+  tags: dotnetscript
+
+- name: Run installDotNetScript.sh
+  shell: ./install.sh
+  args:
+    chdir: /tmp/
+  register: installDotNetScript
+  changed_when: '"already installed" not in installDotNetScript.stdout'
+  tags: dotnetscript
